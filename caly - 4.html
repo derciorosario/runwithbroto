@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RUNWITHBROTO - Comunidade de Corrida</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Oswald:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #ff5e5b;
+            --secondary: #00cecb;
+            --dark: #0a0a0a;
+            --light: #f8f8f8;
+            --gray: #333333;
+            --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: var(--dark);
+            color: var(--light);
+            min-height: 100vh;
+            line-height: 1.6;
+            overflow-x: hidden;
+            font-family: 'Montserrat', sans-serif;
+            background-image: radial-gradient(circle at 20% 30%, rgba(255, 94, 91, 0.1) 0%, transparent 30%),
+                            radial-gradient(circle at 80% 70%, rgba(0, 206, 203, 0.1) 0%, transparent 30%);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+        }
+        
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 4rem;
+            padding-top: 1rem;
+        }
+        
+        .logo {
+            font-family: 'Oswald', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--light);
+            text-decoration: none;
+            position: relative;
+            letter-spacing: 1px;
+        }
+        
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transition: var(--transition);
+        }
+        
+        .logo:hover::after {
+            width: 0;
+        }
+        
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-bottom: 5rem;
+        }
+        
+        h1 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 400;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            max-width: 700px;
+        }
+        
+        h1 span {
+            font-weight: 600;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            font-weight: 300;
+            max-width: 600px;
+            margin-bottom: 3rem;
+            opacity: 0.9;
+        }
+        
+        .event-date {
+            font-size: 1.8rem;
+            margin-bottom: 3rem;
+            font-weight: 400;
+            position: relative;
+            padding-left: 2rem;
+        }
+        
+        .event-date::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 1.5rem;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+        
+        .content-wrapper {
+            display: flex;
+            gap: 4rem;
+            align-items: flex-start;
+        }
+        
+        .form-container {
+            flex: 1;
+            max-width: 500px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: var(--transition);
+        }
+        
+        .form-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        }
+        
+        .form-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            font-weight: 400;
+            color: var(--light);
+            letter-spacing: 1px;
+        }
+        
+        .form-group {
+            margin-bottom: 1.8rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.8rem;
+            font-weight: 300;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        input {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--light);
+            font-size: 1rem;
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 0 3px rgba(255, 94, 91, 0.2);
+        }
+        
+        button {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            color: var(--dark);
+            border: none;
+            padding: 1.2rem 2.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            border-radius: 8px;
+            width: 100%;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        button:hover::before {
+            left: 100%;
+        }
+        
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 94, 91, 0.5);
+        }
+        
+        .video-container {
+            flex: 1;
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        
+        .video-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        }
+        
+        .video-placeholder {
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background-image: url('https://images.unsplash.com/photo-1543351611-58f69d7c1781?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .video-placeholder::before {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+            transition: var(--transition);
+        }
+        
+        .video-container:hover .video-placeholder::before {
+            transform: scale(1.1);
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .video-placeholder::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-top: 15px solid transparent;
+            border-left: 25px solid white;
+            border-bottom: 15px solid transparent;
+            transform: translateX(3px);
+            transition: var(--transition);
+        }
+        
+        .video-container:hover .video-placeholder::after {
+            transform: translateX(5px) scale(1.1);
+        }
+        
+        .payment-info {
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            text-align: center;
+        }
+        
+        .features {
+            margin-top: 5rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: var(--transition);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            background: rgba(255, 255, 255, 0.08);
+        }
+        
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--secondary);
+        }
+        
+        .feature-title {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        .feature-description {
+            opacity: 0.8;
+            font-size: 0.95rem;
+        }
+        
+        footer {
+            margin-top: 5rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .social-link {
+            color: var(--light);
+            font-size: 1.2rem;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+        
+        .social-link:hover {
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+        
+        /* Modal de Vídeo */
+        .video-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+        }
+        
+        .video-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .video-modal-content {
+            width: 90%;
+            max-width: 1000px;
+            position: relative;
+        }
+        
+        .video-modal-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: var(--transition);
+            background: none;
+            border: none;
+        }
+        
+        .video-modal-close:hover {
+            color: var(--primary);
+            transform: rotate(90deg);
+        }
+        
+        .video-modal-iframe {
+            width: 100%;
+            height: 0;
+            padding-bottom: 56.25%;
+            position: relative;
+        }
+        
+        .video-modal-iframe iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        /* Modal de Pagamento MPesa */
+        .mpesa-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+        }
+        
+        .mpesa-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .mpesa-modal-content {
+            background: rgba(30, 30, 30, 0.95);
+            border-radius: 15px;
+            padding: 3rem;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        }
+        
+        .mpesa-modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+            background: none;
+            border: none;
+        }
+        
+        .mpesa-modal-close:hover {
+            color: var(--primary);
+            transform: rotate(90deg);
+        }
+        
+        .mpesa-modal-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--light);
+            text-align: center;
+        }
+        
+        .mpesa-modal-text {
+            margin-bottom: 2rem;
+            text-align: center;
+            opacity: 0.8;
+        }
+        
+        .mpesa-form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .mpesa-form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        
+        .mpesa-form-group input {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--light);
+            border-radius: 8px;
+        }
+        
+        .mpesa-submit-btn {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            color: var(--dark);
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            border-radius: 8px;
+            width: 100%;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .mpesa-submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .mpesa-submit-btn:hover::before {
+            left: 100%;
+        }
+        
+        .mpesa-submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 94, 91, 0.5);
+        }
+        
+        .loader {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--dark);
+            animation: spin 1s ease-in-out infinite;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(0.8); opacity: 0.7; }
+            70% { transform: scale(1.1); opacity: 0.3; }
+            100% { transform: scale(0.8); opacity: 0.7; }
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        @media (max-width: 768px) {
+            .content-wrapper {
+                flex-direction: column;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .form-container {
+                width: 100%;
+            }
+            
+            .video-modal-content {
+                width: 95%;
+            }
+            
+            .mpesa-modal-content {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Modal de Vídeo -->
+    <div class="video-modal" id="videoModal">
+        <div class="video-modal-content">
+            <button class="video-modal-close" id="closeVideoModal">&times;</button>
+            <div class="video-modal-iframe">
+                <iframe id="youtubeVideo" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal de Pagamento MPesa -->
+    <div class="mpesa-modal" id="mpesaModal">
+        <div class="mpesa-modal-content">
+            <button class="mpesa-modal-close" id="closeMpesaModal">&times;</button>
+            <h3 class="mpesa-modal-title">Pagamento via MPesa</h3>
+            <p class="mpesa-modal-text">Por favor, insira seu número de telefone registrado no MPesa para concluir o pagamento.</p>
+            
+            <div class="mpesa-form-group">
+                <label for="mpesaNumber">Número de Telefone</label>
+                <input type="tel" id="mpesaNumber" placeholder="Ex: 841234567" required>
+            </div>
+            
+            <button class="mpesa-submit-btn" id="confirmMpesaPayment">
+                Confirmar Pagamento
+                <span class="loader" id="mpesaLoader" style="display: none;"></span>
+            </button>
+        </div>
+    </div>
+    
+    <div class="container">
+        <header>
+            <a href="#" class="logo">RUNWITHBROTO</a>
+        </header>
+        
+        <section class="hero">
+            <h1>Muito além da <span>corrida</span>, uma <span>comunidade</span></h1>
+            <p class="subtitle">
+                Estamos aqui para fazer parte de uma comunidade de pessoas que procuram desenvolver sua saúde física, mental e um espírito de familiaridade. Não é uma competição, é uma jornada juntos.
+            </p>
+            <p class="event-date">Próxima corrida: 24 de Maio de 2025</p>
+        </section>
+        
+        <div class="content-wrapper">
+            <div class="form-container">
+                <h2 class="form-title">Junte-se a nós</h2>
+                <form id="registration-form">
+                    <div class="form-group">
+                        <label for="name">Nome completo</label>
+                        <input type="text" id="name" required placeholder="Seu nome">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Telefone</label>
+                        <input type="tel" id="phone" required placeholder="Seu número para contato">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">E-mail</label>
+                        <input type="email" id="email" required placeholder="Seu melhor e-mail">
+                    </div>
+                    
+                    <button type="submit">Participar</button>
+                    <p class="payment-info">Após o registro, você será direcionado para o pagamento via MPesa</p>
+                </form>
+            </div>
+            
+            <div class="video-container" id="videoTrigger">
+                <div class="video-placeholder"></div>
+            </div>
+        </div>
+        
+        <div class="features">
+            <div class="feature-card">
+                <div class="feature-icon">🏃‍♂️</div>
+                <h3 class="feature-title">Comunidade</h3>
+                <p class="feature-description">Junte-se a um grupo de pessoas que compartilham o mesmo propósito de saúde e bem-estar.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🌬️</div>
+                <h3 class="feature-title">Liberdade</h3>
+                <p class="feature-description">Sinta o vento no rosto e a liberdade de se mover em grupo, com apoio mútuo.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🏆</div>
+                <h3 class="feature-title">Superação</h3>
+                <p class="feature-description">Desafie seus limites pessoais em um ambiente acolhedor e sem pressão.</p>
+            </div>
+        </div>
+        
+        <footer>
+            <p>© 2025 RUNWITHBROTO. Todos os direitos reservados.</p>
+            <div class="social-links">
+                <a href="#" class="social-link">Instagram</a>
+                <a href="#" class="social-link">Facebook</a>
+                <a href="#" class="social-link">WhatsApp</a>
+            </div>
+        </footer>
+    </div>
+    
+    <script>
+        // Controle do Modal de Vídeo
+        const videoTrigger = document.getElementById('videoTrigger');
+        const videoModal = document.getElementById('videoModal');
+        const closeVideoModal = document.getElementById('closeVideoModal');
+        const youtubeVideo = document.getElementById('youtubeVideo');
+        
+        videoTrigger.addEventListener('click', function() {
+            videoModal.classList.add('active');
+            youtubeVideo.src = 'https://www.youtube.com/embed/pMgf3kbqz3s?autoplay=1';
+            document.body.style.overflow = 'hidden';
+        });
+        
+        closeVideoModal.addEventListener('click', function() {
+            videoModal.classList.remove('active');
+            youtubeVideo.src = '';
+            document.body.style.overflow = 'auto';
+        });
+        
+        // Fechar modal ao clicar fora
+        videoModal.addEventListener('click', function(e) {
+            if (e.target === videoModal) {
+                videoModal.classList.remove('active');
+                youtubeVideo.src = '';
+                document.body.style.overflow = 'auto';
+            }
+        });
+        
+        // Controle do Modal de Pagamento MPesa
+        const mpesaModal = document.getElementById('mpesaModal');
+        const closeMpesaModal = document.getElementById('closeMpesaModal');
+        const confirmMpesaPayment = document.getElementById('confirmMpesaPayment');
+        const mpesaLoader = document.getElementById('mpesaLoader');
+        
+        // Form submission
+        document.getElementById('registration-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Simulação de loading
+            const button = this.querySelector('button');
+            const originalText = button.textContent;
+            button.textContent = 'Processando...';
+            button.disabled = true;
+            
+            // Simulação de envio
+            setTimeout(() => {
+                button.textContent = originalText;
+                button.disabled = false;
+                
+                // Mostrar modal MPesa
+                mpesaModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }, 1500);
+        });
+        
+        closeMpesaModal.addEventListener('click', function() {
+            mpesaModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+        
+        // Fechar modal ao clicar fora
+        mpesaModal.addEventListener('click', function(e) {
+            if (e.target === mpesaModal) {
+                mpesaModal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+        
+        // Processar pagamento MPesa
+        confirmMpesaPayment.addEventListener('click', function() {
+            const mpesaNumber = document.getElementById('mpesaNumber').value;
+            
+            if (!mpesaNumber) {
+                alert('Por favor, insira seu número de telefone MPesa');
+                return;
+            }
+            
+            // Mostrar loader
+            mpesaLoader.style.display = 'inline-block';
+            confirmMpesaPayment.disabled = true;
+            
+            // Simular processamento
+            setTimeout(() => {
+                mpesaLoader.style.display = 'none';
+                confirmMpesaPayment.disabled = false;
+                mpesaModal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+                
+                // Mostrar mensagem de sucesso
+                alert('Pagamento processado com sucesso! Você receberá uma confirmação por SMS.');
+            }, 3000);
+        });
+    </script>
+</body>
+</html>
